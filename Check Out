@@ -1,0 +1,106 @@
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class CheckoutPage extends JFrame {
+
+    private boolean checkoutCanceled = false;
+
+    public CheckoutPage() {
+        initComponents();
+    }
+
+    private void initComponents() {
+        setTitle("Checkout");
+        setSize(600, 500);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JLabel titleLabel = new JLabel("Checkout Procedure");
+
+        JTextArea cartTextArea = new JTextArea();
+        cartTextArea.setEditable(false);
+
+        JButton checkoutButton = new JButton("Procedure for Checkout");
+        JButton cancelButton = new JButton("Cancel Checkout");
+
+        checkoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayCartContents(cartTextArea);
+                if (!checkoutCanceled) {
+                    processPayment();
+                    generateReceipt();
+                }
+            }
+        });
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkoutCanceled = true;
+                cartTextArea.setText("Checking out has been cancelled, you may now go back.");
+            }
+        });
+
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(titleLabel)
+                                        .addComponent(cartTextArea, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(checkoutButton)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cancelButton)))
+                                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(titleLabel)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cartTextArea, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(checkoutButton)
+                                        .addComponent(cancelButton))
+                                .addContainerGap(15, Short.MAX_VALUE))
+        );
+    }
+
+    private void displayCartContents(JTextArea cartTextArea) {
+        cartTextArea.setText("Shopping Cart Contents:\n"
+                + "- Item 1: $100.01\n"
+                + "- Item 2: $15.94\n"
+                + "Total: $115.95\n\n");
+    }
+
+    private void processPayment() {
+        JOptionPane.showMessageDialog(null, "Payment processed successfully.");
+    }
+    private void generateReceipt() {
+        String receipt = "Elec Receipt\n\n"
+                + "Purchased Items:\n"
+                + "- Item 1: $100.01\n"
+                + "- Item 2: $15.94\n"
+                + "Total Order Amount: $115.95\n"
+                + "Billing Information:\n"
+                + "- Name: John Doe\n"
+                + "- Credit Card: **** **** **** 4723\n";
+
+        JOptionPane.showMessageDialog(null, receipt, "Elec Receipt", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            CheckoutPage checkoutPage = new CheckoutPage();
+            checkoutPage.setVisible(true);
+        });
+    }
+}
