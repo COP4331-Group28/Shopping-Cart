@@ -1,0 +1,61 @@
+//Product.java 
+
+package final_project;
+
+public class Product {
+    private final String name;
+    private final double price;
+    private final int quantity;
+
+    public Product(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+}
+
+
+
+
+
+//ItemDes.java
+
+package final_project
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ItemDes extends JFrame {
+
+    private final Product product;
+
+    public ItemDes(Product product) {
+        this.product = product;
+
+        initComponents();
+    }
+
+    private void initComponents() {
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Product sampleProduct = new Product("Sample Product", 100.01, 35);
+            ItemDes itemDes = new ItemDes(sampleProduct);
+            itemDes.setVisible(true);
+        });
+    }
+}
