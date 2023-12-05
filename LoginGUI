@@ -1,0 +1,151 @@
+package cop_4331.login_gui;
+
+/**
+ *
+ * @author fayaiz
+ * Controller class responsible for handling dashboard rendering.
+ */
+public class DashboardController {
+    private DashboardView dashboardView;
+
+    /**
+     * Constructor initializing the DashboardView instance.
+     */
+    public DashboardController() {
+        this.dashboardView = new DashboardView();
+    }
+
+    /**
+     * Renders the customer dashboard.
+     */
+    public void renderCustomerDashboard() {
+        // Logic to render customer dashboard view
+        dashboardView.renderCustomerDashboardView();
+    }
+
+    /**
+     * Renders the seller dashboard.
+     */
+    public void renderSellerDashboard() {
+        // Logic to render seller dashboard view
+        dashboardView.renderSellerDashboardView();
+    }
+}
+
+
+package cop_4331.login_gui;
+
+/**
+ *
+ * @author fayaiz
+ * View class responsible for rendering the dashboard views.
+ */
+public class DashboardView {
+
+    /**
+     * Renders the customer dashboard view.
+     * Implement UI rendering code here.
+     */
+    public void renderCustomerDashboardView() {
+        // Rendering logic for customer dashboard view
+        System.out.println("Rendering Customer Dashboard...");
+        // Implement UI rendering code here
+    }
+
+    /**
+     * Renders the seller dashboard view.
+     * Implement UI rendering code here.
+     */
+    public void renderSellerDashboardView() {
+        // Rendering logic for seller dashboard view
+        System.out.println("Rendering Seller Dashboard...");
+        // Implement UI rendering code here
+    }
+}
+
+package cop_4331.login_gui;
+
+/**
+ *
+ * @author fayaiz
+ * Controller class responsible for handling login actions.
+ */
+public class LoginController {
+    private DashboardController dashboardController;
+
+    /**
+     * Constructs a LoginController and initializes the associated DashboardController.
+     */
+    public LoginController() {
+        this.dashboardController = new DashboardController();
+    }
+
+    /**
+     * Handles the login action for a customer.
+     * Renders the customer dashboard view.
+     */
+    public void handleCustomerLogin() {
+        // Render customer dashboard view
+        dashboardController.renderCustomerDashboard();
+    }
+
+    /**
+     * Handles the login action for a seller.
+     * Renders the seller dashboard view.
+     */
+    public void handleSellerLogin() {
+        // Render seller dashboard view
+        dashboardController.renderSellerDashboard();
+    }
+}
+
+package cop_4331.login_gui;
+
+/**
+ *
+ * @author fayaiz
+ * Represents a simple login GUI where users can log in as a customer or a seller.
+ */
+import javax.swing.*;
+public class LoginView extends JFrame {
+
+    /**
+     * Constructs the LoginView frame.
+     */
+    public LoginView() {
+        setTitle("Simple Login");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(null);
+
+        JButton customerButton = new JButton("Login as Customer");
+        customerButton.setBounds(50, 50, 200, 30);
+        add(customerButton);
+
+        JButton sellerButton = new JButton("Login as Seller");
+        sellerButton.setBounds(50, 100, 200, 30);
+        add(sellerButton);
+
+        customerButton.addActionListener(e -> {
+            // Handle login as customer
+            JOptionPane.showMessageDialog(null, "Logged in as Customer");
+        });
+
+        sellerButton.addActionListener(e -> {
+            // Handle login as seller
+            JOptionPane.showMessageDialog(null, "Logged in as Seller");
+        });
+    }
+
+    /**
+     * The main method to launch the LoginView.
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            LoginView loginGUI = new LoginView();
+            loginGUI.setVisible(true);
+        });
+    }
+}
