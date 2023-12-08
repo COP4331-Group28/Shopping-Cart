@@ -1,14 +1,13 @@
-package cop_4331.login_gui;
-
-
-import javax.swing.*;
 /**
+ *
  * @author fayaiz
+ */
+import javax.swing.*;
+
+/**
  * Represents the login GUI with customer and seller options.
  */
 public class LoginGUI extends JFrame {
-
-    private DashboardController dashboardController;
 
     public LoginGUI() {
         setTitle("Simple Login");
@@ -16,8 +15,6 @@ public class LoginGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
-
-        dashboardController = new DashboardController();
 
         JButton customerButton = new JButton("Login as Customer");
         customerButton.setBounds(50, 50, 200, 30);
@@ -28,16 +25,26 @@ public class LoginGUI extends JFrame {
         add(sellerButton);
 
         customerButton.addActionListener(e -> {
-            // Handle login as customer
-            dashboardController.renderCustomerDashboard();
+            renderCustomerDashboard();
             JOptionPane.showMessageDialog(null, "Logged in as Customer");
         });
 
         sellerButton.addActionListener(e -> {
-            // Handle login as seller
-            dashboardController.renderSellerDashboard();
+            renderSellerDashboard();
             JOptionPane.showMessageDialog(null, "Logged in as Seller");
         });
+    }
+
+    private void renderCustomerDashboard() {
+        // Logic to render customer dashboard view
+        System.out.println("Rendering Customer Dashboard...");
+        // Implement UI rendering code here
+    }
+
+    private void renderSellerDashboard() {
+        // Logic to render seller dashboard view
+        System.out.println("Rendering Seller Dashboard...");
+        // Implement UI rendering code here
     }
 
     public static void main(String[] args) {
