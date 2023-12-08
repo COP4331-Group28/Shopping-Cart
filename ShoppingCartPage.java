@@ -33,9 +33,6 @@ public class ShoppingCartPage extends JFrame {
     private final ArrayList<Product> products;
     private final DefaultListModel<String> cartModel;
 
-    /**
-     * 
-     */
     public ShoppingCartPage() {
         this.products = new ArrayList<>();
         products.add(new Product("Product 1", 29.99, new ImageIcon("path/to/image1.jpg")));
@@ -56,7 +53,7 @@ public class ShoppingCartPage extends JFrame {
 
             JLabel nameLabel = new JLabel(product.getName());
             JLabel imageLabel = new JLabel(product.getImage());
-            
+
             productPanel.add(nameLabel);
             productPanel.add(imageLabel);
             productPanel.add(addButton);
@@ -66,8 +63,12 @@ public class ShoppingCartPage extends JFrame {
         JList<String> cartList = new JList<>(cartModel);
         JScrollPane cartScrollPane = new JScrollPane(cartList);
 
+        JButton checkoutButton = new JButton("Checkout");
+        checkoutButton.addActionListener(e -> checkout());
+
         mainPanel.add(productPanel, BorderLayout.CENTER);
         mainPanel.add(cartScrollPane, BorderLayout.EAST);
+        mainPanel.add(checkoutButton, BorderLayout.SOUTH);
 
         add(mainPanel);
         setVisible(true);
@@ -86,8 +87,23 @@ public class ShoppingCartPage extends JFrame {
         }
     }
 
+    private void checkout() {
+        double total = calculateTotal();
+        JOptionPane.showMessageDialog(null, "Total: $" + total);
+    }
+
+    private double calculateTotal() {
+    double total = 0;
+    for (int i = 0; i < cartModel.size(); i++) {
+        String[] item = cartModel.getElementAt(i).split(" - \\$");
+        total += Double.parseDouble(item[1]);
+    }
+    return total;
+}
+
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new ShoppingCartPage());
+        SwingUtilities.invokeLater(ShoppingCartPage::new);
     }
 }
 
