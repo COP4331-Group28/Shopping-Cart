@@ -4,30 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-class Product {
-    private final String name;
-    private final double price;
-    private final ImageIcon image;
-
-    public Product(String name, double price, ImageIcon image) {
-        this.name = name;
-        this.price = price;
-        this.image = image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public ImageIcon getImage() {
-        return image;
-    }
-}
-
 public class ShoppingCartPage extends JFrame {
 
     private final ArrayList<Product> products;
@@ -53,7 +29,7 @@ public class ShoppingCartPage extends JFrame {
 
             JLabel nameLabel = new JLabel(product.getName());
             JLabel imageLabel = new JLabel(product.getImage());
-
+            
             productPanel.add(nameLabel);
             productPanel.add(imageLabel);
             productPanel.add(addButton);
@@ -64,7 +40,7 @@ public class ShoppingCartPage extends JFrame {
         JScrollPane cartScrollPane = new JScrollPane(cartList);
 
         JButton checkoutButton = new JButton("Checkout");
-        checkoutButton.addActionListener(e -> checkout());
+        checkoutButton.addActionListener(new CheckoutListener());
 
         mainPanel.add(productPanel, BorderLayout.CENTER);
         mainPanel.add(cartScrollPane, BorderLayout.EAST);
@@ -73,6 +49,7 @@ public class ShoppingCartPage extends JFrame {
         add(mainPanel);
         setVisible(true);
     }
+    
 
     private class AddToCartListener implements ActionListener {
         private final Product product;
@@ -87,23 +64,48 @@ public class ShoppingCartPage extends JFrame {
         }
     }
 
-    private void checkout() {
-        double total = calculateTotal();
-        JOptionPane.showMessageDialog(null, "Total: $" + total);
+    private class CheckoutListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        double total = 0;
+        // Iterate through the cart model to calculate the total price
+        for (int i = 0; i < cartModel.size(); i++) {
+            // Get each item from the cart model and extract the price
+            String item = cartModel.getElementAt(i);
+            double price = Double.parseDouble(item.split("\\$")[1]);
+            total += price;
+        }
+        JOptionPane.showMessageDialog(null, "Total amount: $" + total);
     }
-
-    private double calculateTotal() {
-    double total = 0;
-    for (int i = 0; i < cartModel.size(); i++) {
-        String[] item = cartModel.getElementAt(i).split(" - \\$");
-        total += Double.parseDouble(item[1]);
-    }
-    return total;
 }
 
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(ShoppingCartPage::new);
+        SwingUtilities.invokeLater(() -> new ShoppingCartPage());
+    }
+
+    class Product {
+        private final String name;
+        private final double price;
+        private final ImageIcon image;
+
+        public Product(String name, double price, ImageIcon image) {
+            this.name = name;
+            this.price = price;
+            this.image = image;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public ImageIcon getImage() {
+            return image;
+        }
     }
 }
 
