@@ -1,14 +1,10 @@
 /**
  *
- * @author fayaiz
+ * @author fayai
  */
 import javax.swing.*;
 
-/**
- * Represents the login GUI with customer and seller options.
- */
 public class LoginGUI extends JFrame {
-
     public LoginGUI() {
         setTitle("Simple Login");
         setSize(300, 200);
@@ -25,26 +21,21 @@ public class LoginGUI extends JFrame {
         add(sellerButton);
 
         customerButton.addActionListener(e -> {
-            renderCustomerDashboard();
-            JOptionPane.showMessageDialog(null, "Logged in as Customer");
+            openShoppingCartPage("Customer");
         });
 
         sellerButton.addActionListener(e -> {
-            renderSellerDashboard();
-            JOptionPane.showMessageDialog(null, "Logged in as Seller");
+            openShoppingCartPage("Seller");
         });
     }
 
-    private void renderCustomerDashboard() {
-        // Logic to render customer dashboard view
-        System.out.println("Rendering Customer Dashboard...");
-        // Implement UI rendering code here
-    }
-
-    private void renderSellerDashboard() {
-        // Logic to render seller dashboard view
-        System.out.println("Rendering Seller Dashboard...");
-        // Implement UI rendering code here
+    private void openShoppingCartPage(String userType) {
+        if (userType.equals("Customer")) {
+            dispose(); // Close the login window
+            SwingUtilities.invokeLater(ShoppingCartPage::new); // Open the ShoppingCartPage
+        } else {
+            JOptionPane.showMessageDialog(null, "Seller login not implemented yet.");
+        }
     }
 
     public static void main(String[] args) {
